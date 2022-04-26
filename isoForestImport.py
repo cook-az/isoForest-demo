@@ -119,14 +119,7 @@ def getBaseDelta(dataCol, timeCol, xx = None, yy = None):
     
     deltaCol = dataCol.diff()
     deltaPD = pd.concat([deltaCol,dataCol], axis = 1)
-    deltaPD.columns = ("deltaCol", "dataCol")
-    
-    # When using the difference between rows it will create an na value for the first row, I'm using the below method to do so,
-    # Combined with the row creating deltaIncidents and the deltaDate
-    # For the difference alone I could hard code the 1 value
-    # However, the dataframes for the windows requires a more robust method and I would prefer to use that when possible over hard coding numbers
-
-    #dropped = deltaPD['deltaCol'].isna().sum()    
+    deltaPD.columns = ("deltaCol", "dataCol")   
     deltaPD = deltaPD.dropna()
 
     clf.fit(deltaPD)
@@ -318,17 +311,3 @@ def getIF(dataCol, timeCol, windowList, x = None, y = None, time = None):
 theList = [2,3]
 
 oneDate = getIF(dfDay['Total_Incidents'], dfDay.index, theList, x = "dateTime", y = "timeSeriesData", time = True)
-#%%
-Do:
-    replace plotting stuff with a function
-    
-Questions to ask:
-    Do I explain why I do things yes
-    For passing an argument that seems unneeded but is actually used for plotting, should I point that out? (almost forgot myself) yes
-    Should a readme explaining why I did the project include I? if needed but avoid
-    
-#%%
-
-Do:
-    Anomaly names across each of the functions need to be standardized
-    It skipped get baseDelta
